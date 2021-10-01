@@ -124,10 +124,13 @@ class CustomTwigTemplate extends DataSource
 
                 $settings = $this->prepSettings($settings);
 
+                $previousNamespace = Craft::$app->getView()->getNamespace();
+                Craft::$app->getView()->setNamespace('settings');
                 $customSettingsHtml = Craft::$app->getView()->renderString($customSettingsHtmlWithExtras, [
                     'settings' => count($settings) ? $settings : $this->report->getSettings(),
                     'errors' => $settingsErrors
                 ], View::TEMPLATE_MODE_CP);
+                Craft::$app->getView()->setNamespace($previousNamespace);
             }
         }
 
